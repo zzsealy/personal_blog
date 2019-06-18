@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+    {{ super() }}
+    {{ ckeditor.load_code_theme() }}  <!-- 这个地方为了实现代码高亮！ -->
+{% endblock %}
+
+
+{% block content %}
+
+<div class="page-header">
+        <h1 align="left"><font color="blue">{{ post.title }}</font>
+            <span class="float-right">
+      </span>
+        </h1>
+</div>
+
+
+
+
+
+<div class="row">
+        <div class="col-sm-8" >
+            {{ post.body|safe }}
+            <hr>
+
+            <div class="modal fade postLinkModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Permalink</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+{% endblock %}

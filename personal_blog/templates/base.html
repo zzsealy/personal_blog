@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <link href="{{ url_for ('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for ('static', filename = 'css/bootstrap-theme.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for ('static', filename = 'css/x.css') }}" rel="stylesheet"/>
+
+   {% endblock %}
+</head >
+
+<body background="{{ url_for('static', filename='pics/bg.jpg', _external=True ) }}">
+
+<div class="container">
+
+{%block navbar %}
+<h1>代睿权的个人博客</h1>
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ url_for('blog.index') }}">主页</a></li>
+                  <li><a href="{{ url_for('blog.index_life') }}">文字</a></li>
+                    <li><a href="{{ url_for('blog.individual_resume') }}">个人简介</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('admin.setting') }}">设置</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+{% endblock %}
+
+
+
+
+    {% for message in get_flashed_messages(with_categories=True) %}
+        <div class="alert alert-{{ message[0] }}" role="alert">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message[1] }}
+        </div>
+    {% endfor %}
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% block footer %}  {% endblock %}
+</div>
+
+
+
+{% block scripts %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+    {{ moment.locale('zh-cn') }}
+{% endblock %}
+
+
+
+
+</body>
+</html>

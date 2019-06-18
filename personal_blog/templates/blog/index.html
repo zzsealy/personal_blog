@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{%block title %}主页{% endblock %}
+
+
+{% block head %}
+    {{ super() }}
+
+
+{% endblock %}
+
+
+{% block content %}
+    <div id="content" calss="row_fluid" >
+    <div class="row"><div class="col-sm-8">
+            {% include 'blog/_posts.html' %}
+            {% if posts %}
+                <div >{{ render_pagination(pagination) }}</div>
+            {% endif %}
+        </div>
+
+
+        <div class="col-sm-4 sidebar">
+            {% include 'blog/sidebar.html' %}
+        </div>
+
+    </div>
+    </div>
+
+
+
+
+
+{% endblock %}
+
+
