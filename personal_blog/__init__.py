@@ -9,7 +9,7 @@ import click
 from flask_wtf.csrf import CSRFError
 from personal_blog.fake import fake_posts, fake_admin, fake_category
 from personal_blog.models import Post, Admin
-from secrets import token_bytes
+from os import urandom
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
@@ -21,9 +21,6 @@ def create_app():
     register_faker_value(app)
     register_shell_context(app)
     register_template_context(app)
-    key = token_bytes(20)
-    app.config['SECRET_KEY'] = key
-    app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True   # 这个设为True 才能开启代码高亮
     register_logger(app)
     return app
 
@@ -32,6 +29,9 @@ def config_app(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:////' +
                                                       os.path.join(app.root_path, 'data.db'))
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    key = urandom(10)
+    app.secret_key = key
+    app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True  # 这个设为True 才能开启代码高亮
 
 
 def register_blueprint(app):

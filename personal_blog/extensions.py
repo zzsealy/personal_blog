@@ -14,6 +14,7 @@ ckeditor = CKEditor()
 moment = Moment()
 migrate = Migrate()
 
+
 @login_manager.user_loader
 def load_user(user_id):
     from personal_blog.models import Admin     # 在这里导入为了防止循环依赖
