@@ -63,7 +63,7 @@ def register_logger(app):
     if not app.debug:
         app.logger.addHandler(file_handler)
 
-
+'''
 def register_errors(app):
     @app.errorhandler(400)
     def bad_request(e):
@@ -80,6 +80,7 @@ def register_errors(app):
     @app.errorhandler(CSRFError)
     def handle_csrf_error(e):
         return render_template('errors/400.html', description=e.description), 400
+'''
 
 # 初始化扩展
 def register_extension(app):
