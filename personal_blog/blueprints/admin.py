@@ -24,8 +24,9 @@ def login():
             if username == admin.username and password == admin.password:
                 login_user(admin, remember)
                 flash('登陆成功', 'info')
-            else:
-                flash('账号密码错误', 'warning')
+                return redirect_back()
+
+            flash('账号密码错误', 'warning')
         else:
             flash('No account.', 'warning')
     return render_template('admin/login.html', form=form)

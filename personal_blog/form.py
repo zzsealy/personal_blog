@@ -4,6 +4,7 @@ from wtforms.validators import DataRequired, Length
 from flask_ckeditor import CKEditorField
 from personal_blog.models import Category
 
+
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
