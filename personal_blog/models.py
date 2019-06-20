@@ -23,7 +23,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
     body = db.Column(db.Text)
-    timestamp = db.Column(db.DateTime, default=datetime.now, index=True)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
 
     category = db.relationship('Category', back_populates='posts')
