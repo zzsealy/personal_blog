@@ -159,13 +159,12 @@ def edit_indicidual_resume():
     return redirect(url_for('admin.edit_post', post_id=post.id))
 
 
-#修改网站介绍
+# 修改网站介绍
 @admin_bp.route('/edit_this_site', methods=['GET', 'POST'])
 def edit_this_site():
     cate = Category.query.filter_by(name='this_site').first()
     post = Post.query.filter_by(category=cate).first()
     return redirect(url_for('admin.edit_post', post_id=post.id))
-
 
 
 @admin_bp.route('/set_password', methods=['GET', 'POST'])

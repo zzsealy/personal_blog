@@ -3,32 +3,25 @@
 {%block title %}主页{% endblock %}
 
 
-{% block head %}
-    {{ super() }}
 
-
-{% endblock %}
 
 
 {% block content %}
-    <div id="content" calss="row_fluid" >
-    <div class="row"><div class="col-sm-8">
+    <div>
+        <div>
+
             {% include 'blog/_posts.html' %}
             {% if posts %}
-                <div >{{ render_pagination(pagination) }}</div>
+                <div class="pag">{{ render_pagination(pagination) }}</div>
             {% endif %}
         </div>
 
-
+<!--
         <div class="col-sm-4 sidebar">
             {% include 'blog/sidebar.html' %}
         </div>
-
+-->
     </div>
-    </div>
-
-
-
 
 
 {% endblock %}

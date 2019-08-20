@@ -10,7 +10,7 @@ def index():
     cate1 = Category.query.filter_by(name='this_site').first()    # 网站介绍的分类。
     cate2 = Category.query.filter_by(name='individual_resume').first()  # 个人简介的分类。
     cate3 = Category.query.filter_by(name='life').first()           # 文字的分类，起的名称是life。
-    per_page = 5    # 每页的数量
+    per_page = 8    # 每页的数量
     pagination = Post.query.filter(Post.category != cate1, Post.category != cate2, Post.category != cate3).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page) # 分页对象
     posts = pagination.items    # 当前页数记录的列表
     return render_template('blog/index.html', pagination=pagination, posts=posts)
@@ -20,7 +20,7 @@ def index():
 def index_life():
     page = request.args.get('page', 1, type=int)  # 从查询字符串中获取当前页数
     cate = Category.query.filter_by(name='life').first()
-    per_page = 5  # 每页的数量
+    per_page = 8  # 每页的数量
     pagination = Post.query.filter(Post.category == cate).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)  # 分页对象
     posts = pagination.items  # 当前页数记录的列表
     return render_template('blog/index.html', pagination=pagination, posts=posts)
@@ -32,7 +32,7 @@ def index_life():
 def show_post(post_id):
     post = Post.query.filter().get_or_404(post_id)
     page = request.args.get('page', 1, type=int)
-    per_page = 5
+    per_page = 8
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)
 
     return render_template('blog/post.html', post=post, pagination=pagination)

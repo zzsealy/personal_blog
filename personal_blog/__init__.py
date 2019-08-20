@@ -92,8 +92,6 @@ def register_template_context(app):
         )
 
 
-
-
 login_manager.login_view = 'admin.login'
 # login_manager.login_message = 'Your custom message'
 login_manager.login_message_category = 'warning'

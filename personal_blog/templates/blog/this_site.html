@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 
 
-{% block head %}
-    {{ super() }}
-    {{ ckeditor.load_code_theme() }}  <!-- 这个地方为了实现代码高亮！ -->
-{% endblock %}
+    {% block title %} {{ post.title }} {% endblock title %}
+    {% block daima %} {{ ckeditor.load_code_theme() }}  <!-- 这个地方为了实现代码高亮！ --> {% endblock daima %}
 
 
 {% block content %}
 
 <div class="page-header">
-        <h1 align="left"><font color="blue">{{ post.title }}</font>
+        <h1 align="center"><font>{{ post.title }}</font>
             <span class="float-right">
       </span>
         </h1>
