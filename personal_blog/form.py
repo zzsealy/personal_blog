@@ -6,18 +6,18 @@ from personal_blog.models import Category
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
-    remember = BooleanField('Remember me')
-    submit = SubmitField('Log in')
+    username = StringField('用户名', validators=[DataRequired(), Length(1, 20)])
+    password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
+    remember = BooleanField('记住我')
+    submit = SubmitField('登陆')
 
 
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(1, 60)])
-    category = SelectField('Category', coerce=int, default=1)
-    body = CKEditorField('Body', validators=[DataRequired()])
+    title = StringField('标题', validators=[DataRequired(), Length(1, 60)])
+    category = SelectField('分类', coerce=int, default=1)
+    body = CKEditorField('文章主体', validators=[DataRequired()])
 
-    submit = SubmitField()
+    submit = SubmitField('发布')
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)

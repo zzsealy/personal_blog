@@ -31,6 +31,7 @@ def config_app(app):
     key = urandom(10)
     app.secret_key = key
     app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True  # 这个设为True 才能开启代码高亮
+    app.config['CKEDITOR_SERVE_LOCAL'] = True
 
 
 def register_blueprint(app):

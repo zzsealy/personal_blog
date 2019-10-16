@@ -8,7 +8,7 @@
         </p>
          <small>
             文章分类: <a
-                href="{{ url_for('.show_category', category_id=post.category.id) }}">{{ post.category.name }}</a>
+                href="{{ url_for('.show_category', category_id=post.category.id) }}" style="color:#6699FF">{{ post.category.name }}</a>
             <span style="float:right">发布于：{{ moment(post.timestamp).format('LLL') }}</span>
         </small>
         {% if not loop.last %}
