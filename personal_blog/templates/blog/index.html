@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/pagination.html' import render_pagination %}
-{%block title %}DRQ的个人网站{% endblock %}
+{%block title %}博客|代睿权的个人博客{% endblock %}
 
 
-
+{% block head %}
+    {{ super() }}
+{% endblock %}
 
 
 {% block content %}
     <div>
         <div>
-
             {% include 'blog/_posts.html' %}
+            <br>  <! -- 这个地方防止最后一个文章的分类会跑到 翻页下面。 -->
             {% if posts %}
-                <div class="pag">{{ render_pagination(pagination) }}</div>
+                <div class="pagination">{{ render_pagination(pagination) }}</div>
             {% endif %}
         </div>
 
