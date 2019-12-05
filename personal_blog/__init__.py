@@ -9,12 +9,14 @@ import click
 from personal_blog.fake import fake_posts, fake_admin, fake_category
 from personal_blog.models import Post, Admin
 from os import urandom
-basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
+from config import Config
 
 
 def create_app():
     app = Flask('personal_blog')
-    config_app(app)
+    app.config.from_object(Config)
+    Config.init_app(app)
     register_extension(app)
     register_blueprint(app)
     register_faker_value(app)
@@ -23,7 +25,7 @@ def create_app():
     register_logger(app)
     return app
 
-
+'''
 def config_app(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:////' +
                                                       os.path.join(app.root_path, 'data.db'))
@@ -32,7 +34,7 @@ def config_app(app):
     app.secret_key = key
     app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True  # 这个设为True 才能开启代码高亮
     app.config['CKEDITOR_SERVE_LOCAL'] = True
-
+'''
 
 def register_blueprint(app):
     app.register_blueprint(blog_bp)

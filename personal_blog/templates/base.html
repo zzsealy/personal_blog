@@ -8,72 +8,65 @@
     <title>{% block title %}{% endblock title %}</title>
     {% block daima %} {% endblock daima %}
 
-    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css">
-    <link href="{{ url_for('static', filename='css/x.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/x.css') }}" rel="stylesheet" />
 
-   {% endblock %}
-</head >
+    {% endblock %}
+</head>
 
 <body>
 
 
 
-{%block navbar %}
+    {%block navbar %}
     <div class="side_bar">
-		<div class="header">
+        <div class="header">
             <a class="logo" href="{{ url_for('blog.index') }}">DRQ</a>
-            <div class="intro"><p><small>以梦为马，不负韶华。</small></p></div>
-        </div>
-		<div class="nav">
-            <div>
-                <ul>
-                    <li><a href="{{ url_for('blog.index') }}">主页</a></li>
-                  <li><a href="{{ url_for('blog.index_life') }}">文字</a></li>
-                    {% if current_user.is_authenticated %}
-                        <li><a href="{{ url_for('admin.setting') }}">设置</a></li>
-                    {% endif %}
-                </ul>
+            <div class="intro">
+                <small>以梦为马，不负韶华。</small>
+                <input type="text" value="搜索还没实现">
+                <button>搜索</button>
             </div>
         </div>
-		<div class="tag-list">
-            <ul>
-                <li>
-                    <a href="{{ url_for('blog.individual_resume') }}">个人简介</a>
-
+        <hr>
+        <div class="navbar-collapse collapse" style="margin-left:13%;">
+            <ul class="nav nav-pills">
+                <li> <a href="{{ url_for('blog.index') }}">主页</a> </li>
+                <li> <a href="{{ url_for('blog.index_life') }}">文字</a> </li>
+                <li> {% if current_user.is_authenticated %} </li>
+                <li> <a href="{{ url_for('admin.setting') }}">设置</a> </li>
+                {% endif %}
+                <li role="presentation" class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                        aria-expanded="false">关于 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li> <a href="{{ url_for('blog.individual_resume') }}">个人简介</a> </li>
+                        <li> <a href="{{ url_for('blog.this_site') }}" target="_blank">这个网站介绍</a> </li>
+                        <li> <a href="{{ url_for('static', filename='wx.JPG') }}" target="_blank">微信</a> </li>
+                        <li> <a href="https://www.cnblogs.com/dairuiquan/" target="_blank">博客园</a> </li>
+                        <li> <a href="https://github.com/zzsealy" target="_blank">github</a> </li>
+                    </ul>
                 </li>
-            <li>
-                    <a href="{{ url_for('blog.this_site') }}" target="_blank">这个网站介绍</a>
-                </li>
-            <li>
-                    <a href="{{ url_for('static', filename='wx.JPG') }}" target="_blank">微信</a>
-                </li>
-            <li>
-                    <a href="https://www.cnblogs.com/dairuiquan/" target="_blank">博客园</a>
-                </li>
-            <li>
-                    <a href="https://github.com/zzsealy" target="_blank">github</a>
-                </li>
-
-        </ul>
+            </ul>
         </div>
-	</div>
-    <div class="main">
-         {% for message in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{ message[0] }}" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times</button>
-            {{ message[1] }}
+        <hr>
+        <div class="main">
+            {% for message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ message[0] }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times</button>
+                {{ message[1] }}
+            </div>
+            {% endfor %}
+            <div class="content">
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
-    {% endfor %}
-        <div class="article-list">
-        {% block content %}
+
+
+
         {% endblock %}
-        </div>
-    </div>
-
-
-
-{% endblock %}
 
 
 
@@ -83,23 +76,24 @@
 
 
 
-    {% block footer %}  {% endblock %}
+        {% block footer %} {% endblock %}
 
 
 
 
-{% block scripts %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
-    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
-    {{ moment.locale('zh-cn') }}
-{% endblock %}
+        {% block scripts %}
+        <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+        {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+        {{ moment.locale('zh-cn') }}
+        {% endblock %}
 
 
 
 
 </body>
+
 </html>
