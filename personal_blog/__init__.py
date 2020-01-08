@@ -3,20 +3,19 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from personal_blog.extensions import db, bootstrap, login_manager, ckeditor, csrf, moment, migrate
-from personal_blog.blueprints.admin import admin_bp
+from personal_blog.blueprints.user import user_bp
 from personal_blog.blueprints.blog import blog_bp
 import click
-from personal_blog.fake import fake_posts, fake_admin, fake_category
-from personal_blog.models import Post, Admin
+from personal_blog.fake import fake_posts, fake_user, fake_category
+from personal_blog.models import Post, User
 from os import urandom
-
-from config import Config
+from .config import config, basedir
 
 
 def create_app():
     app = Flask('personal_blog')
-    app.config.from_object(Config)
-    Config.init_app(app)
+    app.config.from_object(config)
+    config.init_app(app)
     register_extension(app)
     register_blueprint(app)
     register_faker_value(app)
@@ -38,7 +37,7 @@ def config_app(app):
 
 def register_blueprint(app):
     app.register_blueprint(blog_bp)
-    app.register_blueprint(admin_bp)
+    app.register_blueprint(user_bp)
 
 
 # 注册日志
@@ -80,7 +79,7 @@ def register_extension(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(Post=Post, Admin=Admin)
+        return dict(Post=Post, User=User)
 
 
 # 注册模版上下文
@@ -88,14 +87,14 @@ def register_template_context(app):
     @app.context_processor
     def make_template_context():
         posts = Post.query.order_by(Post.timestamp.desc()).all()
-
         return dict(
             posts=posts,
-            admin=Admin
+            user=User,
+            db=db,
         )
 
 
-login_manager.login_view = 'admin.login'
+login_manager.login_view = 'user.login'
 # login_manager.login_message = 'Your custom message'
 login_manager.login_message_category = 'warning'
 
@@ -114,12 +113,9 @@ def register_faker_value(app):
 
     @app.cli.command()
     def forge():
-
         click.echo('创建虚拟文章类型')
         fake_category()
-        '''
         click.echo('创建虚拟文章')
         fake_posts()
-        '''
         click.echo('创建管理员')
-        fake_admin()
+        fake_user()

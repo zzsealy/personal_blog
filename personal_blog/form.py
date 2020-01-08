@@ -25,7 +25,7 @@ class PostForm(FlaskForm):
                                  for category in Category.query.order_by(Category.name).all()]
 
 
-class AdminForm(FlaskForm):
+class UserForm(FlaskForm):
     username = StringField('账号', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('密码', validators=[DataRequired(), Length(1, 128)])
     submit = SubmitField('登陆')

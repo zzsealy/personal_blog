@@ -1,9 +1,9 @@
 # 这里面是数据模型
 from personal_blog.extensions import db
 from datetime import datetime
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from . import login_manager
 class Permission:
     COMMENT = 1
     WRITE = 2
@@ -11,14 +11,14 @@ class Permission:
 
 
 class Role(db.Model):
-    __tablename__ = 'role'
+    __tablename__ = 'roles'
     __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     default = db.Column(db.Boolean, default=False, index=True)
-    permission = db.Column(db.Integer)
-    users = db.relationship('User', back_populates='role')
-
+    permissions = db.Column(db.Integer)
+    users = db.relationship('User', backref='role', lazy='dynamic')
+    
     def __init__(self, **kwargs):
         super(Role, self).__init__(**kwargs)
         if self.permissions is None:
@@ -27,7 +27,7 @@ class Role(db.Model):
     def insert_roles():
         roles = {
             'User': [Permission.COMMENT],
-            'Admin': [Permission.COMMENT,
+            'User': [Permission.COMMENT,
                               Permission.WRITE, Permission.ADMIN],
         }
         default_role = 'User'
@@ -76,7 +76,7 @@ class User(UserMixin, db.Model):
         super(User,self).__init__(**kwargs)
         if self.role is None:   # 根据电子邮件确定用户角色
             if self.email == current_app.config['ADMIN']:
-                self.role = Role.query.filter_by(name='Admin').first()
+                self.role = Role.query.filter_by(name='User').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
         if self.email is not None and self.avatar_hash is None:
@@ -96,7 +96,7 @@ class User(UserMixin, db.Model):
     def can(self, perm):
         return self.role is not None and self.role.has_permission(perm)
     
-    def is_administrator(self):    # 检查是否是管理员
+    def is_useristrator(self):    # 检查是否是管理员
         return self.can(Permission.ADMIN)
     
     def ping(self):
@@ -119,7 +119,7 @@ class AnonymousUser(AnonymousUserMixin):# 匿名用户类
     def can(self, permission):
         return False
     
-    def is_administrator(self):
+    def is_useristrator(self):
         return False
 
 login_manager.anonymous_user = AnonymousUser
@@ -153,7 +153,7 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     category = db.relationship('Category', back_populates='posts')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    user = db.relationship('User', back_populates('posts'))
+    user = db.relationship('User', back_populates='posts')
 
 
 

@@ -16,7 +16,7 @@
       </span>
         </h1>
     {% if current_user.is_authenticated %}
-    <span style="float:right"><a  class="btn btn-info btn-sm" href="{{ url_for('admin.edit_post', post_id=post.id) }}">编辑</a> </span>
+    <span style="float:right"><a  class="btn btn-info btn-sm" href="{{ url_for('user.edit_post', post_id=post.id) }}">编辑</a> </span>
     {% endif %}
 </div>
 

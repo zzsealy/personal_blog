@@ -2,7 +2,7 @@ import os
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 
-class Config:
+class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') 
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = os.environ.get('MAIL_PORT')
@@ -16,13 +16,12 @@ class Config:
     CKEDITOR_ENABLE_CODESNIPPET = True
     CKEDITOR_SERVE_LOCAL = True
     PER_PAGE=15
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:////' + os.path.join(app.root_path, 'data.db'))
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', 'sqlite:////' + os.path.join(basedir, 'data.db'))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    PER_PAGE=8
     @staticmethod
     def init_app(app):
         pass
 
 
-
-
-config = Config
+config = Config()

@@ -12,8 +12,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/root/.local/share/virtualenvs/personal_blog-LikLcfQg/lib/python3.5/site-packages/flask/app.py", line 1818, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/root/personal_blog/personal_blog/blueprints/admin.py", line 167, in edit_this_site
-    return redirect(url_for('admin.edit_post', post_id=post.id))
+  File "/root/personal_blog/personal_blog/blueprints/user.py", line 167, in edit_this_site
+    return redirect(url_for('user.edit_post', post_id=post.id))
 AttributeError: 'NoneType' object has no attribute 'id'
 2019-06-19 14:33:07,065 - flask.app - ERROR - Exception on /edit_individual_resume [GET]
 Traceback (most recent call last):
@@ -29,8 +29,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/root/.local/share/virtualenvs/personal_blog-LikLcfQg/lib/python3.5/site-packages/flask/app.py", line 1818, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/root/personal_blog/personal_blog/blueprints/admin.py", line 159, in edit_indicidual_resume
-    return redirect(url_for('admin.edit_post', post_id=post.id))
+  File "/root/personal_blog/personal_blog/blueprints/user.py", line 159, in edit_indicidual_resume
+    return redirect(url_for('user.edit_post', post_id=post.id))
 AttributeError: 'NoneType' object has no attribute 'id'
 2019-06-19 14:35:08,761 - flask.app - ERROR - Exception on /edit_individual_resume [GET]
 Traceback (most recent call last):
@@ -46,8 +46,8 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/root/.local/share/virtualenvs/personal_blog-LikLcfQg/lib/python3.5/site-packages/flask/app.py", line 1818, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/root/personal_blog/personal_blog/blueprints/admin.py", line 159, in edit_indicidual_resume
-    return redirect(url_for('admin.edit_post', post_id=post.id))
+  File "/root/personal_blog/personal_blog/blueprints/user.py", line 159, in edit_indicidual_resume
+    return redirect(url_for('user.edit_post', post_id=post.id))
 AttributeError: 'NoneType' object has no attribute 'id'
 2019-06-19 14:35:13,816 - flask.app - ERROR - Exception on /edit_this_site [GET]
 Traceback (most recent call last):
@@ -63,6 +63,6 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/root/.local/share/virtualenvs/personal_blog-LikLcfQg/lib/python3.5/site-packages/flask/app.py", line 1818, in dispatch_request
     return self.view_functions[rule.endpoint](**req.view_args)
-  File "/root/personal_blog/personal_blog/blueprints/admin.py", line 167, in edit_this_site
-    return redirect(url_for('admin.edit_post', post_id=post.id))
+  File "/root/personal_blog/personal_blog/blueprints/user.py", line 167, in edit_this_site
+    return redirect(url_for('user.edit_post', post_id=post.id))
 AttributeError: 'NoneType' object has no attribute 'id'

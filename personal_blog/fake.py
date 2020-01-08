@@ -1,46 +1,26 @@
 import random
 
 from faker import Faker
-from personal_blog.models import Post, Admin, Category
+from personal_blog.models import Post, User, Category
 from personal_blog import db
 
 fake = Faker(locale='zh_CN')
 
 
 def fake_category():
-    category = Category(name='编程')
-    db.session.add(category)
-    db.session.commit()
-    category = Category(name='individual_resume')
-    db.session.add(category)
-    db.session.commit()
-    category = Category(name='this_site')
-    db.session.add(category)
-    db.session.commit()
-    category = Category(name='life')
-    db.session.add(category)
+    category1 = Category(name='编程')
+    category2 = Category(name='individual_resume')
+    category3 = Category(name='this_site')
+    category4 = Category(name='life')
+    db.session.add_all([category1, category2, category3,category4])
     db.session.commit()
 
-
-def fake_posts(count=30):
-    for i in range(count):
-        post = Post(
-            title=fake.sentence(),
-            body=fake.text(800),
-            category=Category.query.first(),
-            timestamp=fake.date_time_this_year()
-        )
-        db.session.add(post)
-    db.session.commit()
-
-
-def fake_admin():
-    admin = Admin(
-        username='admin',
+def fake_user():
+    user = User(
+        nickname='user',
         password='flask',
-
     )
 
-    db.session.add(admin)
+    db.session.add(user)
     db.session.commit()
 
