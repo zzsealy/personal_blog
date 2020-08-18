@@ -5,6 +5,7 @@ from personal_blog.form import LoginForm, PostForm, AdminForm, SetPasswordform, 
 from personal_blog.setting import redirect_back
 from personal_blog.extensions import db
 
+
 admin_bp = Blueprint('admin', __name__)
 
 
@@ -21,7 +22,7 @@ def login():
         remember = form.remember.data
         admin = Admin.query.first()
         if admin:
-            if username == admin.username and password == admin.password:
+            if admin.check_password(password):
                 login_user(admin, remember)
                 flash('登陆成功', 'info')
                 return redirect_back()
@@ -173,8 +174,9 @@ def set_password():
     form = SetPasswordform()
     if form.validate_on_submit():
         admin = Admin.query.first()
+        new_password = form.password.data
         admin.username = form.username.data
-        admin.password = form.password.data
+        admin.set_password(new_password)
         db.session.add(admin)
         db.session.commit()
         flash('密码修改成功')

@@ -1,83 +1,27 @@
-body{
-    background: #454545;
-    line-height: 1.8;
+body {
 
-}
-
-
-
-a,body{
-    color: #eee;
-}
-
-.pag{
-    color: #343434;
-}
-
-.article-list{
-    padding: 20px 30px;
-}
-
-
-
-.side_bar{
-
-float: left;
-width: 18%;
-}
-
-.side_bar > *{
-    padding: 10px 50px;
-}
-
-.side_bar .nav a,
-.side_bar .tag-list a{
-    padding: 3px;
-    color: #888;
-
-}
-
-.side_bar .nav a:hover,
-.side_bar .tag-list a:hover{
-    color:#eee;
-}
-
-.side_bar .nav a{
-    font-weight: 700;
 }
 
 .main {
-float: right;
-width: 80%;
-background: #fff;
-color: #454545;
-}
-
-.main a{
-color: #454545;
-}
-
-.art-title{
-text-align: center;
-}
-
-.pag{
-text-align: center;
+    border: black solid 1px;
 
 }
 
-.page-link{
-    color: #000;
-    background: #000;
+.myself img {
+    width: 180px;
+    height: 100px;
 }
 
-
-.header .logo{
-line-height:1;
-border: 5px solid #eee;
-padding: 10px 20px;
-font-size: 30px;
-display: inline-block;
-margin-bottom: 10px;
+#q {
+    width: 370px;
+    height: 40px;
+    margin-top: 20px;
+    border: solid 3px;
+    padding:0
 }
 
+#s {
+    margin-top: 25px;
+    margin-left:0;
+
+}

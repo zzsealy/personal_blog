@@ -112,12 +112,11 @@ def register_faker_value(app):
 
     @app.cli.command()
     def forge():
-
+        """
         click.echo('创建虚拟文章类型')
         fake_category()
-        '''
         click.echo('创建虚拟文章')
         fake_posts()
-        '''
+        """
         click.echo('创建管理员')
         fake_admin()

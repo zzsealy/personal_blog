@@ -37,9 +37,8 @@ def fake_posts(count=30):
 def fake_admin():
     admin = Admin(
         username='admin',
-        password='flask',
-
     )
+    admin.set_password('flask')
 
     db.session.add(admin)
     db.session.commit()

@@ -8,19 +8,33 @@
     <title>{% block title %}{% endblock title %}</title>
     {% block daima %} {% endblock daima %}
 
-    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}"  rel="stylesheet" />
+    <link href="{{ url_for('static', filename = 'css/x.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css">
-
     {% endblock %}
 </head>
 
-<body style="margin:0px 60px 60px 60px ">
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="myself">
+                <a href="{{ url_for('blog.index') }}"><img src="{{ url_for('static', filename='pics/logo.jpg') }}" alt=""></a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <input id="q" type="text" placeholder="输入搜索内容">
+            </div>
+                <button id="s" class="btn btn-default">SEARCH</button>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="main">
 
     {%block navbar %}
-
-        <div class="row">
-        
-                <ul class="nav nav-pills col-md-offset-4" style="margin-top:60px">
+                
+                <ul class="nav nav-pills" style="margin-top:60px">
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ url_for('blog.index') }}">主页</a>
                 </li>
@@ -31,10 +45,9 @@
                     <a href="{{ url_for('blog.individual_resume') }}">个人简介</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('blog.this_site') }}" target="_blank">这个网站介绍</a>
+                    <a href="{{ url_for('blog.this_site') }}">这个网站介绍</a>
                 </li>
                
-                </li>
                 <li class="nav-item">
                     <a href="https://www.cnblogs.com/dairuiquan/" target="_blank">博客园</a>
                 </li>
@@ -47,7 +60,7 @@
                     {% endif %}
                 </li>
             </ul>
-        </div>
+        
 
     
     {% endblock %}
@@ -73,7 +86,7 @@
     {% block footer %} {% endblock %}
 
 
-
+    
 
     {% block scripts %}
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
@@ -84,9 +97,10 @@
     {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
     {{ moment.locale('zh-cn') }}
     {% endblock %}
-
-
-
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
