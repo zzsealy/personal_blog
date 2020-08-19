@@ -13,16 +13,16 @@ class LoginForm(FlaskForm):
 
 
 class PostForm(FlaskForm):
-    title = StringField('标题', validators=[DataRequired(), Length(1, 60)])
+    title = StringField('标题', validators=[DataRequired(), Length(1, 60)], render_kw={'class':'form-title'})
     category = SelectField('分类', coerce=int, default=1)
     body = CKEditorField('文章主体', validators=[DataRequired()])
-
     submit = SubmitField('发布')
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.category.choices = [(category.id, category.name)
                                  for category in Category.query.order_by(Category.name).all()]
+
 
 
 class AdminForm(FlaskForm):

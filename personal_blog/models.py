@@ -29,6 +29,7 @@ class Post(db.Model):
     category = db.relationship('Category', back_populates='posts')
 
 
+
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))

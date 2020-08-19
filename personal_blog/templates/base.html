@@ -8,7 +8,7 @@
     <title>{% block title %}{% endblock title %}</title>
     {% block daima %} {% endblock daima %}
 
-    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}"  rel="stylesheet" />
+    <link href="{{ url_for('static', filename = 'css/bootstrap.min.css') }}" rel="stylesheet" />
     <link href="{{ url_for('static', filename = 'css/x.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.bootcss.com/normalize/8.0.1/normalize.min.css">
     {% endblock %}
@@ -20,86 +20,97 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="myself">
-                <a href="{{ url_for('blog.index') }}"><img src="{{ url_for('static', filename='pics/logo.jpg') }}" alt=""></a>
+                    <a href="{{ url_for('blog.index') }}"><img src="{{ url_for('static', filename='pics/logo.jpg') }}"
+                            alt=""></a>
                 </div>
             </div>
             <div class="col-md-4">
-                <input id="q" type="text" placeholder="输入搜索内容">
+                <input id="q" type="text" placeholder="输入搜索关键字">
             </div>
-                <button id="s" class="btn btn-default">SEARCH</button>
+            <button id="s" class="btn u-btn-white g-color-primary--hover g-bg-secondary g-font-weight-600 g-font-size-13 text-uppercase rounded g-py-12 g-px-20" type="submit">
+                <span class="g-hidden-md-down">搜索</span>
+                <i class="g-hidden-lg-up fa fa-search"></i>
+            </button>
+        </div>
+
+
+        {%block navbar %}
+
+        <ul class="nav nav-pills" style="margin-top:60px">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('blog.index') }}">主页</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('blog.index_life') }}">文字</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="https://www.cnblogs.com/dairuiquan/" target="_blank">博客园</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://github.com/zzsealy" target="_blank">github</a>
+            </li>
+            <!-- <a href="{{ url_for('blog.individual_resume') }}">关于</a> -->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">关于<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url_for('blog.individual_resume') }}">我</a></li>
+                    <a href="{{ url_for('blog.this_site') }}">这个网站</a>
+                </ul>
+            </li>
+            <li class="nav-item">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('admin.setting') }}">设置</a>
+                {% endif %}
+            </li>
+        </ul>
+
+
+
+        {% endblock %}
+
+        <div class="main">
+            {% for message in get_flashed_messages(with_categories=True) %}
+            <div class="alert alert-{{ message[0] }}" role="alert">
+                <button type="button" class="close" data-dismiss="alert">&times</button>
+                {{ message[1] }}
+            </div>
+            {% endfor %}
+
         </div>
         <div class="row">
             <div class="col-md-9">
                 <div class="main">
+                    {% block content %}
 
-    {%block navbar %}
+                    {% endblock content %}
+                    {% block footer %} {% endblock %}
                 
-                <ul class="nav nav-pills" style="margin-top:60px">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('blog.index') }}">主页</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('blog.index_life') }}">文字</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url_for('blog.individual_resume') }}">个人简介</a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url_for('blog.this_site') }}">这个网站介绍</a>
-                </li>
-               
-                <li class="nav-item">
-                    <a href="https://www.cnblogs.com/dairuiquan/" target="_blank">博客园</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://github.com/zzsealy" target="_blank">github</a>
-                </li>
-                <li class="nav-item">
-                    {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('admin.setting') }}">设置</a>
-                    {% endif %}
-                </li>
-            </ul>
-        
-
-    
-    {% endblock %}
-
-    <div class="main">
-        {% for message in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{ message[0] }}" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times</button>
-            {{ message[1] }}
-        </div>
-        {% endfor %}
-        <div class="article-list">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </div>
-
-
-
-
-
-
-    {% block footer %} {% endblock %}
-
-
-    
-
-    {% block scripts %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
-    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
-    {{ moment.locale('zh-cn') }}
-    {% endblock %}
                 </div>
             </div>
+            <div class="col-md-3" >
+                
+                {% block subhead %}
+                
+                {% endblock subhead %}
+            </div>
+            
+
+
+
+            {% block scripts %}
+            <script type="text/javascript"
+                src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+            <!-- <script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script> -->
+            {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+            {{ moment.locale('zh-cn') }}
+            {% endblock %}
         </div>
+
+
     </div>
 
 </body>

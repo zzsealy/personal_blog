@@ -32,7 +32,8 @@ def config_app(app):
     app.secret_key = key
     app.config['CKEDITOR_ENABLE_CODESNIPPET'] = True  # 这个设为True 才能开启代码高亮
     app.config['CKEDITOR_SERVE_LOCAL'] = True
-
+    app.config['CKEDITOR_FILE_UPLOADER'] = 'admin.upload'
+    app.config['UPLOAD_PATH'] = os.path.join(basedir, 'uploads')
 
 def register_blueprint(app):
     app.register_blueprint(blog_bp)

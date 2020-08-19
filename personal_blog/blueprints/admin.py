@@ -1,9 +1,10 @@
-from flask import Blueprint, render_template, url_for, redirect, flash, request
+from flask import Blueprint, render_template, url_for, redirect, flash, request, send_from_directory
 from personal_blog.models import Admin, Post, Category
 from flask_login import login_user, logout_user, login_required, current_user
 from personal_blog.form import LoginForm, PostForm, AdminForm, SetPasswordform, CategoryForm
 from personal_blog.setting import redirect_back
 from personal_blog.extensions import db
+from flask_ckeditor import CKEditor, CKEditorField, upload_fail, upload_success
 
 
 admin_bp = Blueprint('admin', __name__)
@@ -149,10 +150,10 @@ def new_post():
         db.session.commit()
         flash('博客发表成功')
         return redirect(url_for('blog.index'))
-    return render_template('/admin/new_post.html', form=form)
+    return render_template('/admin/new_post.html', form=form )
 
 
-# 修改个人简介
+# 修改关于
 @admin_bp.route('/edit_individual_resume',  methods=['GET', 'POST'])
 def edit_indicidual_resume():
     cate = Category.query.filter_by(name='individual_resume').first()
@@ -183,3 +184,21 @@ def set_password():
         return redirect(url_for('blog.index'))
     return render_template('/admin/set_password.html', form=form)
 
+
+@admin_bp.route('/files/<path:filename>')
+def uploaded_files(filename):
+    path = '/the/uploaded/directory'
+    return send_from_directory(path, filename)
+
+
+@admin_bp.route('/upload', methods=['POST'])
+@login_required
+def upload():
+    f = request.files.get('upload') # 获取上传图片文件对象, 键必须为'upload'
+    extensions = f.filename.split('.')[-1].lower()
+    if extensions not in ['png', 'jpg', 'gif', 'jpeg']:
+        return uploaded_fail(message='只能上传图片')
+    f.save(os.path.join(app.config['UPLOAED'], f.filename))
+    url = url_for('uploads_files', filename=f.filename)
+    return upload_success(url=url)
+    

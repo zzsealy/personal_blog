@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'post_detail.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
 
@@ -8,17 +8,23 @@
 
 {% endblock %}
 
-{% block title %}Edit Post{% endblock %}
 
+{% block title %} 编辑文章 {% endblock %}
 {% block content %}
-    <div class="page-header">
-        <h1 style="text-align:center">{% block entitl %} {% endblock %}</h1>
-    </div>
-    {{ render_form(form) }}
-{% endblock %}
+    <form method="POST">
+        {{ form.csrf_token }}
+        {{ form.title.label }} <br>
+        {{ form.title }} <br><br>
+        {{ form.category.label }}<br>
+        {{ form.category }}<br><br>
+        {{ form.body.label }}
+        {{ form.body }}
+        {{ form.submit }}
 
-{% block scripts %}
-    {{ super() }}
-
-    {{ ckeditor.config(name='body') }}
+    </form>
 {% endblock %}
+    
+
+
+
+

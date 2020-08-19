@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block subhead %}
+<h1>文章目录</h1>
+            <div id="subtitle">
+                <ul>
+
+                </ul>
+            </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    {{ ckeditor.config(name='body') }}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/post_script.js') }}"></script>
+{% endblock %}

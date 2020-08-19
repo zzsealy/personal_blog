@@ -8,7 +8,7 @@ blog_bp = Blueprint('blog', __name__)
 def index():
     page = request.args.get('page', 1, type=int)  # 从查询字符串中获取当前页数
     cate1 = Category.query.filter_by(name='网站介绍').first()    # 网站介绍的分类。
-    cate2 = Category.query.filter_by(name='个人介绍').first()  # 个人简介的分类。
+    cate2 = Category.query.filter_by(name='个人介绍').first()  # 关于的分类。
     cate3 = Category.query.filter_by(name='生活').first()           # 文字的分类，起的名称是life。
     per_page = 8    # 每页的数量
     pagination = Post.query.filter(Post.category != cate1, Post.category != cate2, Post.category != cate3).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page) # 分页对象
